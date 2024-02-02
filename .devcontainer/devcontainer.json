@@ -1,0 +1,30 @@
+{
+  "name": "Adaptive Card Template Expansion Service",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "forwardPorts": [
+    7071,
+    10000,
+    10001,
+    10002
+  ],
+  "otherPortsAttributes": {
+    "onAutoForward": "ignore"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/azure-cli:1": {},
+    "ghcr.io/jlaundry/devcontainer-features/azure-functions-core-tools:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "github.copilot",
+        "github.vscode-github-actions",
+        "ms-azuretools.vscode-azurefunctions",
+        "ms-azuretools.vscode-docker"        
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/functions/*.mjs",
+  "scripts": {
+    "start": "func start",
+    "test": "mocha --recursive '**/test/*/*.test.mjs'"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.0.0",
+    "adaptive-expressions": "^4.22.0",
+    "adaptivecards-templating": "^2.3.1"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.x",
+    "chai": "^5.0.3",
+    "mocha": "^10.2.0"
+  },
+  "type": "module"
+}
