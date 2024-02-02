@@ -50,10 +50,16 @@ jobs:
     #     npm run build --if-present
     #     npm run test --if-present
     #     popd
-      - name: 'Login via Azure CLI'
+
+      # - name: 'Login via Azure CLI'
+      #   uses: azure/login@v1
+      #   with:
+      #     creds: ${{ secrets.AZURE_RBAC_CREDENTIALS }}
+
+      - name: Azure login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_RBAC_CREDENTIALS }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
