@@ -39,13 +39,13 @@ jobs:
           npm install
           popd
 
-      # - name: 'Deploy Azure Function'
-      #   uses: Azure/functions-action@v1
-      #   id: fa
-      #   with:
-      #     app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-      #     package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-      #     respect-funcignore: true
+      - name: 'Deploy Azure Function'
+        uses: Azure/functions-action@v1
+        id: fa
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          respect-funcignore: true
 
       - name: 'Get Function Invocation URL'
         id: get_invocation_url
