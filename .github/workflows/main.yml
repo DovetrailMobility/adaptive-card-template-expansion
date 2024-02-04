@@ -62,7 +62,5 @@ jobs:
         run: |
           echo "Running tests..."
           echo "Function Invocation URL: ${FUNCTION_INVOKE_URL}"
-          ls -A
-          printenv
           npm test
 
