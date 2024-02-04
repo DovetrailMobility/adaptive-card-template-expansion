@@ -5,7 +5,7 @@
   "main": "src/functions/*.mjs",
   "scripts": {
     "start": "func start",
-    "test": "./node_modules/bin/mocha --recursive '**/test/*/*.test.mjs'"
+    "test": "npx mocha --recursive '**/test/*/*.test.mjs'"
   },
   "dependencies": {
     "@azure/functions": "^4.0.0",
