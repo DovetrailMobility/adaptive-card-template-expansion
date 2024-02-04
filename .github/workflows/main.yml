@@ -45,7 +45,7 @@ jobs:
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          # respect-funcignore: true
+          # respect-funcignore: true                          # Want this in prod only
 
       - name: 'Get Function Invocation URL'
         id: get_invocation_url
@@ -57,9 +57,11 @@ jobs:
 
       - name: 'Run Tests'
         shell: bash
+        env:
+          FUNCTION_INVOKE_URL: ${{ steps.get_invocation_url.outputs.FUNCTION_INVOKE_URL }}
         run: |
           echo "Running tests..."
-          echo "Function Invocation URL: ${{ steps.get_invocation_url.outputs.FUNCTION_INVOKE_URL }}"
+          echo "Function Invocation URL: ${FUNCTION_INVOKE_URL}"
           ls -A
           printenv
           npm test
