@@ -25,10 +25,7 @@ local.settings.json
 node_modules
 dist
 
-# Local python packages
-.python_packages/
-
-# Python Environments
+# Environments
 .env
 .venv
 env/
@@ -36,11 +33,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
 
 # Azurite artifacts
 __blobstorage__
