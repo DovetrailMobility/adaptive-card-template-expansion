@@ -55,7 +55,10 @@ jobs:
           INVOKE_URL_CODE=$(az functionapp function keys list -g $AZURE_RESOURCE_GROUP_NAME -n $AZURE_FUNCTIONAPP_NAME --function-name $FunctionName --query "default" --output tsv)
           echo "FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_CODE}" >> $GITHUB_OUTPUT
 
-      - name: 'Print Function Invocation URL'
+      - name: 'Run Tests'
         shell: bash
         run: |
+          echo "Running tests..."
           echo "Function Invocation URL: ${{ steps.get_invocation_url.outputs.FUNCTION_INVOKE_URL }}"
+          npm test
+

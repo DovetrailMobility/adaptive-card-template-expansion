@@ -10,6 +10,8 @@ services:
       - ../..:/workspaces:cached
     command: sleep infinity
     network_mode: service:azurite
+    env_file:
+      - ../.env
 
   azurite:
     image: mcr.microsoft.com/azure-storage/azurite

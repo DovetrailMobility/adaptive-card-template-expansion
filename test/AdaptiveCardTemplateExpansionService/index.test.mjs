@@ -4,7 +4,7 @@ import templatePayload from './adaptive-card-template.json' assert { type: "json
 import dataPayload from './adaptive-card-data.json' assert { type: "json" };
 import expectedCardPayload from './adaptive-card.json' assert { type: "json" };
 
-const functionUrl = 'http://localhost:7071/api/AdaptiveCardTemplateExpansionService'
+const functionUrl = process.env.FUNCTION_INVOKE_URL;
 
 async function getExpandedTemplatePayload(templatePayload, dataPayload) {
   const options = {
