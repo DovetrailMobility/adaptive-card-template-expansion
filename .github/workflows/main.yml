@@ -52,8 +52,8 @@ jobs:
         shell: bash
         run: |
           INVOKE_URL_BASE=$(az functionapp function show -g $AZURE_RESOURCE_GROUP_NAME -n $AZURE_FUNCTIONAPP_NAME --function-name $FunctionName --query "invokeUrlTemplate" --output tsv)
-          FUNCTION_CODE=$(az functionapp function keys list -g $AZURE_RESOURCE_GROUP_NAME -n $AZURE_FUNCTIONAPP_NAME --function-name $FunctionName --query "default" --output tsv)
-          echo ${FUNCTION_INVOKE_URL_BASE}?code=${FUNCTION_CODE} >> $FUNCTION_INVOKE_URL
+          INVOKE_URL_CODE=$(az functionapp function keys list -g $AZURE_RESOURCE_GROUP_NAME -n $AZURE_FUNCTIONAPP_NAME --function-name $FunctionName --query "default" --output tsv)
+          echo "FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_CODE}" >> $GITHUB_OUTPUT
 
       - name: 'Print Function Invocation URL'
         shell: bash
