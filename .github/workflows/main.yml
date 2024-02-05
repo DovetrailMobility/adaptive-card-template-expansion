@@ -19,6 +19,7 @@ env:
 
 jobs:
   build-and-deploy-tst:
+    name: Build and Deploy to Test Environment
     runs-on: ubuntu-latest
     environment: test
     env:
@@ -57,7 +58,6 @@ jobs:
           INVOKE_URL_CODE=$(az functionapp function keys list -g $AZURE_RESOURCE_GROUP_NAME -n $AZURE_FUNCTIONAPP_NAME --function-name $FunctionName --query "default" --output tsv)
           echo "FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_CODE}" >> $GITHUB_OUTPUT
           
-
       - name: 'Run Tests'
         shell: bash
         env:
@@ -68,6 +68,7 @@ jobs:
           npm test
 
   build-and-deploy-stg:
+    name: Build and Deploy to Staging Environment
     needs: build-and-deploy-tst
     runs-on: ubuntu-latest
     environment: staging
@@ -100,6 +101,7 @@ jobs:
           slot-name: 'staging'
 
   deploy-prd:
+    name: Deploy to Production Environment
     needs: build-and-deploy-stg
     runs-on: ubuntu-latest
     environment: production
