@@ -18,10 +18,10 @@ env:
   NODE_VERSION: '18.19.0'                      # node version to use (e.g. '8.x', '10.x', '12.x')
 
 jobs:
-  build-and-deploy-tst:
-    name: Build and Deploy to Test Environment
+  build-and-deploy-stg:
+    name: Build and Deploy to Staging Environment
     runs-on: ubuntu-latest
-    environment: test
+    environment: staging
     env:
       FunctionName: 'AdaptiveCardTemplateExpansionService'
     steps:
@@ -66,39 +66,6 @@ jobs:
           echo "Running tests..."
           echo "Function Invocation URL: ${FUNCTION_INVOKE_URL}"
           npm test
-
-  build-and-deploy-stg:
-    name: Build and Deploy to Staging Environment
-    needs: build-and-deploy-tst
-    runs-on: ubuntu-latest
-    environment: staging
-    env:
-      FunctionName: 'AdaptiveCardTemplateExpansionService'
-    steps:
-      - name: Checkout (GitHub)
-        uses: actions/checkout@v3
-
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: 'Resolve Project Dependencies'
-        shell: bash
-        run: |
-          echo "Resolving project dependencies..."
-          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-          npm install
-          popd
-
-      - name: 'Deploy Azure Function'
-        uses: Azure/functions-action@v1
-        id: fa
-        with:
-          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          respect-funcignore: true
-          slot-name: 'staging'
 
   deploy-prd:
     name: Deploy to Production Environment
