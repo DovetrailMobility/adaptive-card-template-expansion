@@ -68,6 +68,7 @@ jobs:
           npm test
 
   build-and-deploy-stg:
+    needs: build-and-deploy-tst
     runs-on: ubuntu-latest
     environment: staging
     env:
@@ -99,6 +100,7 @@ jobs:
           slot-name: 'staging'
 
   deploy-prd:
+    needs: build-and-deploy-stg
     runs-on: ubuntu-latest
     environment: production
     env:
