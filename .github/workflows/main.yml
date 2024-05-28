@@ -74,7 +74,6 @@ jobs:
     needs: build-and-deploy-stg
     runs-on: ubuntu-latest
     environment: production
-    if: github.ref == 'refs/heads/main'
     env:
       SourceSlot: 'staging'
       TargetSlot: 'production'
