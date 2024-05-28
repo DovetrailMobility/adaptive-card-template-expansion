@@ -63,8 +63,8 @@ jobs:
         env:
           FUNCTION_INVOKE_URL: ${{ steps.get_invocation_url.outputs.FUNCTION_INVOKE_URL }}
         run: |
-          echo "Pausing for 30 seconds to ensure function is ready..."
-          sleep 30
+          echo "Pausing for 60 seconds to ensure function is ready..."
+          sleep 60
           echo "Running tests..."
           echo "Function Invocation URL: ${FUNCTION_INVOKE_URL}"
           npm test
