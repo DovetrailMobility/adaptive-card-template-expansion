@@ -5,7 +5,12 @@
   "main": "src/functions/*.mjs",
   "scripts": {
     "start": "func start",
-    "test": "npx mocha --recursive '**/test/*/*.test.mjs'"
+    "test": "npx mocha --recursive '**/test/*/*.test.mjs'",
+    "prettier": "npx prettier . --write",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
     "@azure/functions": "^4.0.0",
@@ -13,9 +18,15 @@
     "adaptivecards-templating": "^2.3.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.3.0",
     "azure-functions-core-tools": "^4.x",
     "chai": "^5.0.3",
-    "mocha": "^10.2.0"
+    "eslint": "^9.3.0",
+    "globals": "^15.3.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.5",
+    "mocha": "^10.2.0",
+    "prettier": "3.2.5"
   },
   "type": "module"
 }

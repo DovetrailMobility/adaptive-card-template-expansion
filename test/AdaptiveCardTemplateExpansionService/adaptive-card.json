@@ -1,1 +1,159 @@
-{"type":"AdaptiveCard","body":[{"type":"TextBlock","size":"ExtraLarge","weight":"Bolder","text":"Purchasing Lead Received","color":"Accent"},{"type":"ColumnSet","columns":[{"type":"Column","items":[{"type":"TextBlock","weight":"Bolder","text":"John Doe","wrap":true,"size":"Large"},{"type":"TextBlock","text":"Sell or Part-exchange: Sell","wrap":true,"spacing":"None","weight":"Default"}],"width":"stretch"}]},{"type":"Container","items":[{"type":"TextBlock","text":"Contact Details:","wrap":true,"size":"Medium","weight":"Bolder","color":"Accent"},{"type":"FactSet","facts":[{"title":"Email:","value":"johndoe@someemaildomain.com"},{"title":"Phone:","value":"07000000000"},{"title":"Town/City:","value":"Nowhere"},{"title":"County","value":"Vast County"}],"spacing":"Small"}]},{"type":"Container","items":[{"type":"TextBlock","text":"Scooter Details","wrap":true,"size":"Medium","weight":"Bolder","spacing":"Small","color":"Accent"},{"type":"FactSet","facts":[{"title":"Make/Model:","value":"Bigcorp 3000"},{"title":"Condition","value":"Excellent"},{"title":"Age","value":"0 - 3 yrs"},{"title":"Additional Info:","value":"Some additional info about the condition of the product."}],"spacing":"Small"}]},{"type":"Container","items":[{"type":"TextBlock","text":"Photos","wrap":true,"size":"Medium","weight":"Bolder","color":"Accent"},{"type":"ImageSet","images":[{"type":"Image","size":"Large","url":"https://www.myexamplewebsite.com/65b3d667e591d.jpeg","width":"300px","spacing":"Small","selectAction":{"type":"Action.OpenUrl","tooltip":"Opem image","url":"https://www.myexamplewebsite.com/65b3d667e591d.jpeg"}},{"type":"Image","size":"Large","url":"https://www.myexamplewebsite.com/65b3d667e5fbd.jpeg","width":"300px","spacing":"Small","selectAction":{"type":"Action.OpenUrl","tooltip":"Opem image","url":"https://www.myexamplewebsite.com/65b3d667e5fbd.jpeg"}},{"type":"Image","size":"Large","url":"https://www.myexamplewebsite.com/65b3d667e62da.jpeg","width":"300px","spacing":"Small","selectAction":{"type":"Action.OpenUrl","tooltip":"Opem image","url":"https://www.myexamplewebsite.com/65b3d667e62da.jpeg"}}],"imageSize":"Large"}]},{"type":"ActionSet","actions":[{"type":"Action.OpenUrl","title":"Call","url":"https://teams.microsoft.com/l/call/0/0?users=4:07000000000"},{"type":"Action.OpenUrl","title":"Email","url":"https://outlook.office.com/?path=/mail/action/compose&to=johndoe@someemaildomain.com&subject=Reponding%20to%20your%20enquiry&body=Hi%20John%2C"}]}],"$schema":"http://adaptivecards.io/schemas/adaptive-card.json","version":"1.4"}
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "ExtraLarge",
+      "weight": "Bolder",
+      "text": "Purchasing Lead Received",
+      "color": "Accent"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "John Doe",
+              "wrap": true,
+              "size": "Large"
+            },
+            {
+              "type": "TextBlock",
+              "text": "Sell or Part-exchange: Sell",
+              "wrap": true,
+              "spacing": "None",
+              "weight": "Default"
+            }
+          ],
+          "width": "stretch"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Contact Details:",
+          "wrap": true,
+          "size": "Medium",
+          "weight": "Bolder",
+          "color": "Accent"
+        },
+        {
+          "type": "FactSet",
+          "facts": [
+            { "title": "Email:", "value": "johndoe@someemaildomain.com" },
+            { "title": "Phone:", "value": "07000000000" },
+            { "title": "Town/City:", "value": "Nowhere" },
+            { "title": "County", "value": "Vast County" }
+          ],
+          "spacing": "Small"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Scooter Details",
+          "wrap": true,
+          "size": "Medium",
+          "weight": "Bolder",
+          "spacing": "Small",
+          "color": "Accent"
+        },
+        {
+          "type": "FactSet",
+          "facts": [
+            { "title": "Make/Model:", "value": "Bigcorp 3000" },
+            { "title": "Condition", "value": "Excellent" },
+            { "title": "Age", "value": "0 - 3 yrs" },
+            {
+              "title": "Additional Info:",
+              "value": "Some additional info about the condition of the product."
+            }
+          ],
+          "spacing": "Small"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Photos",
+          "wrap": true,
+          "size": "Medium",
+          "weight": "Bolder",
+          "color": "Accent"
+        },
+        {
+          "type": "ImageSet",
+          "images": [
+            {
+              "type": "Image",
+              "size": "Large",
+              "url": "https://www.myexamplewebsite.com/65b3d667e591d.jpeg",
+              "width": "300px",
+              "spacing": "Small",
+              "selectAction": {
+                "type": "Action.OpenUrl",
+                "tooltip": "Opem image",
+                "url": "https://www.myexamplewebsite.com/65b3d667e591d.jpeg"
+              }
+            },
+            {
+              "type": "Image",
+              "size": "Large",
+              "url": "https://www.myexamplewebsite.com/65b3d667e5fbd.jpeg",
+              "width": "300px",
+              "spacing": "Small",
+              "selectAction": {
+                "type": "Action.OpenUrl",
+                "tooltip": "Opem image",
+                "url": "https://www.myexamplewebsite.com/65b3d667e5fbd.jpeg"
+              }
+            },
+            {
+              "type": "Image",
+              "size": "Large",
+              "url": "https://www.myexamplewebsite.com/65b3d667e62da.jpeg",
+              "width": "300px",
+              "spacing": "Small",
+              "selectAction": {
+                "type": "Action.OpenUrl",
+                "tooltip": "Opem image",
+                "url": "https://www.myexamplewebsite.com/65b3d667e62da.jpeg"
+              }
+            }
+          ],
+          "imageSize": "Large"
+        }
+      ]
+    },
+    {
+      "type": "ActionSet",
+      "actions": [
+        {
+          "type": "Action.OpenUrl",
+          "title": "Call",
+          "url": "https://teams.microsoft.com/l/call/0/0?users=4:07000000000"
+        },
+        {
+          "type": "Action.OpenUrl",
+          "title": "Email",
+          "url": "https://outlook.office.com/?path=/mail/action/compose&to=johndoe@someemaildomain.com&subject=Reponding%20to%20your%20enquiry&body=Hi%20John%2C"
+        }
+      ]
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4"
+}

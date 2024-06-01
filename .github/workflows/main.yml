@@ -1,21 +1,15 @@
 name: Deploy Node.js project to Azure Function App
 
-on: 
+on:
   push:
     branches:
-      - initial-commit
-
-# on:
-#   pull_request:
-#     types: [opened, reopened]
-#     branches:
-#       - main
+      - main
 
 env:
-  AZURE_RESOURCE_GROUP_NAME: 'w2l-prd-uks-rg'  # resource group name on Azure
-  AZURE_FUNCTIONAPP_NAME: 'w2l-prd-uks-fa'     # function app name on Azure
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'          # path to function app project, defaults to the repository root
-  NODE_VERSION: '18.19.0'                      # node version to use (e.g. '8.x', '10.x', '12.x')
+  AZURE_RESOURCE_GROUP_NAME: "w2l-prd-uks-rg" # resource group name on Azure
+  AZURE_FUNCTIONAPP_NAME: "w2l-prd-uks-fa" # function app name on Azure
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: "." # path to function app project, defaults to the repository root
+  NODE_VERSION: "18.19.0" # node version to use (e.g. '8.x', '10.x', '12.x')
 
 jobs:
   build-and-deploy-stg:
@@ -23,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     env:
-      FunctionName: 'AdaptiveCardTemplateExpansionService'
+      FunctionName: "AdaptiveCardTemplateExpansionService"
     steps:
       - name: Checkout (GitHub)
         uses: actions/checkout@v3
@@ -33,7 +27,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: 'Resolve Project Dependencies'
+      - name: "Resolve Project Dependencies"
         shell: bash
         run: |
           echo "Resolving project dependencies..."
@@ -41,15 +35,15 @@ jobs:
           npm install
           popd
 
-      - name: 'Deploy Azure Function'
+      - name: "Deploy Azure Function"
         uses: Azure/functions-action@v1
         id: fa
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          slot-name: 'staging'
+          slot-name: "staging"
 
-      - name: 'Get Function Invocation URL'
+      - name: "Get Function Invocation URL"
         id: get_invocation_url
         shell: bash
         run: |
@@ -57,8 +51,8 @@ jobs:
           INVOKE_URL_BASE=$(az functionapp function show -g $AZURE_RESOURCE_GROUP_NAME -n $AZURE_FUNCTIONAPP_NAME --function-name $FunctionName --query "invokeUrlTemplate" --output tsv)
           INVOKE_URL_CODE=$(az functionapp function keys list -g $AZURE_RESOURCE_GROUP_NAME -n $AZURE_FUNCTIONAPP_NAME --function-name $FunctionName --query "default" --output tsv)
           echo "FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_CODE}" >> $GITHUB_OUTPUT
-          
-      - name: 'Run Tests'
+
+      - name: "Run Tests"
         shell: bash
         env:
           FUNCTION_INVOKE_URL: ${{ steps.get_invocation_url.outputs.FUNCTION_INVOKE_URL }}
@@ -75,15 +69,15 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     env:
-      SourceSlot: 'staging'
-      TargetSlot: 'production'
+      SourceSlot: "staging"
+      TargetSlot: "production"
     steps:
       - name: Login to Azure
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: 'Swap Staging and Production Slots'
+      - name: "Swap Staging and Production Slots"
         shell: bash
         run: |
           echo "Swapping staging and production slots..."
