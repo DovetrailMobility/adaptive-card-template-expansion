@@ -17,10 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     env:
-      FunctionName: "AdaptiveCardTemplateExpansionService"
-      AdaptiveCardTemplateExpansionFunctionName: "AdaptiveCardTemplateExpansionFunction"
-      ContactUsFormParserFunctionName: "ContactUsFunction"
-      WebToLeadFormParserFunctionName: "WebToLeadFunction"
+      AdaptiveCardTemplateExpansionFunctionName: "AdaptiveCardTemplateExpansionService"
+      ContactUsFormParserFunctionName: "ContactUsFormParserService"
+      WebToLeadFormParserFunctionName: "ContactUsFormParserService"
     steps:
       - name: Checkout (GitHub)
         uses: actions/checkout@v3
