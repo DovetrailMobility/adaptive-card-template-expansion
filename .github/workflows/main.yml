@@ -50,18 +50,26 @@ jobs:
         shell: bash
         run: |
           echo "Getting access token..."
-          CLIENT_ID=$(az account show --query "user.name" -o tsv)
           ACCESS_TOKEN=$(az account get-access-token --query "accessToken" -o tsv)
           RESOURCE="https://management.azure.com/"
           TENANT_ID=$(az account show --query "tenantId" -o tsv)
           SUBSCRIPTION_ID=$(az account show --query "id" -o tsv)
           echo "Retrieving function invocation URL..."
           REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTION_APP_NAME}/slots/${SLOT_NAME}/functions/${AdaptiveCardTemplateExpansionFunctionName}?api-version=2023-12-01")
-          ADAPTIVE_CARD_FUNCTION_INVOKE_URL=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
+          INVOKE_URL_BASE=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
+          REST_API_URL=$(echo "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${FUNCTION_APP_NAME}/slots/${SLOT_NAME}/functions/${AdaptiveCardTemplateExpansionFunctionName}/listKeys?api-version=2023-12-01")
+          INVOKE_URL_KEY=$(curl -X POST -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" -H "content-length: 0" ${REST_API_URL} --no-progress-meter | jq -r '.default')
+          ADAPTIVE_CARD_FUNCTION_INVOKE_URL=$(echo "${INVOKE_URL_BASE}?code=${INVOKE_URL_KEY}")
           REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTION_APP_NAME}/slots/${SLOT_NAME}/functions/${ContactUsFormParserFunctionName}?api-version=2023-12-01")
-          CONTACT_US_FUNCTION_INVOKE_URL=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
+          INVOKE_URL_BASE=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
+          REST_API_URL=$(echo "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${FUNCTION_APP_NAME}/slots/${SLOT_NAME}/functions/${ContactUsFormParserFunctionName}/listKeys?api-version=2023-12-01")
+          INVOKE_URL_KEY=$(curl -X POST -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" -H "content-length: 0" ${REST_API_URL} --no-progress-meter | jq -r '.default')
+          CONTACT_US_FUNCTION_INVOKE_URL=$(echo "${INVOKE_URL_BASE}?code=${INVOKE_URL_KEY}")
           REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTION_APP_NAME}/slots/${SLOT_NAME}/functions/${WebToLeadFormParserFunctionName}?api-version=2023-12-01")
-          WEB_TO_LEAD_FUNCTION_INVOKE_URL=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
+          INVOKE_URL_BASE=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
+          REST_API_URL=$(echo "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${FUNCTION_APP_NAME}/slots/${SLOT_NAME}/functions/${WebToLeadFormParserFunctionName}/listKeys?api-version=2023-12-01")
+          INVOKE_URL_KEY=$(curl -X POST -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" -H "content-length: 0" ${REST_API_URL} --no-progress-meter | jq -r '.default')
+          WEB_TO_LEAD_FUNCTION_INVOKE_URL=$(echo "${INVOKE_URL_BASE}?code=${INVOKE_URL_KEY}")
       - name: "Run Tests"
         shell: bash
         env:
