@@ -50,13 +50,11 @@ jobs:
         shell: bash
         run: |
           echo "Getting access token..."
-          CLIENT_ID=$(echo ${{ secrets.AZURE_CREDENTIALS }} | jq -r '.clientId')
-          CLIENT_SECRET=$(echo ${{ secrets.AZURE_CREDENTIALS }} | jq -r '.clientSecret')
+          CLIENT_ID=$(az account show --query "user.name" -o tsv)
+          ACCESS_TOKEN=$(az account get-access-token --query "accessToken" -o tsv)
           RESOURCE="https://management.azure.com/"
-          TENANT_ID=$(echo ${{ secrets.AZURE_CREDENTIALS }} | jq -r '.tenantId')
-          SUBSCRIPTION_ID=$(echo ${{ secrets.AZURE_CREDENTIALS }} | jq -r '.subscriptionId')
-          BEARER_TOKEN=$(curl -X POST -d "grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&resource=${RESOURCE}" https://login.microsoftonline.com/${TENANT_ID}/oauth2/token --no-progress-meter)
-          ACCESS_TOKEN=$(echo $BEARER_TOKEN | jq -r '.access_token')
+          TENANT_ID=$(az account show --query "tenantId" -o tsv)
+          SUBSCRIPTION_ID=$(az account show --query "id" -o tsv)
           echo "Retrieving function invocation URL..."
           REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTION_APP_NAME}/slots/${SLOT_NAME}/functions/${AdaptiveCardTemplateExpansionFunctionName}?api-version=2023-12-01")
           ADAPTIVE_CARD_FUNCTION_INVOKE_URL=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
