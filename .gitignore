@@ -38,3 +38,6 @@ venv.bak/
 __blobstorage__
 __queuestorage__
 __azurite_db*__.json
+
+# Temporary files
+*temp*
