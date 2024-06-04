@@ -14,7 +14,6 @@ FUNCTION_NAME="ContactUsFormParserService"
 
 # login to Azure REST API
 ACCESS_TOKEN=$(az account get-access-token --query "accessToken" -o tsv)
-TENANT_ID=$(az account show --query "tenantId" -o tsv)
 RESOURCE="https://management.azure.com/"
 SUBSCRIPTION_ID=$(az account show --query "id" -o tsv)
 
