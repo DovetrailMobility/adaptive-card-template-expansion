@@ -49,17 +49,21 @@ jobs:
         id: get_invocation_url
         shell: bash
         run: |
+          echo "Getting access token..."
+          CLIENT_ID=$(echo ${{ secrets.AZURE_CREDENTIALS }} | jq -r '.clientId')
+          CLIENT_SECRET=$(echo ${{ secrets.AZURE_CREDENTIALS }} | jq -r '.clientSecret')
+          RESOURCE="https://management.azure.com/"
+          TENANT_ID=$(echo ${{ secrets.AZURE_CREDENTIALS }} | jq -r '.tenantId')
+          SUBSCRIPTION_ID=$(echo ${{ secrets.AZURE_CREDENTIALS }} | jq -r '.subscriptionId')
+          BEARER_TOKEN=$(curl -X POST -d "grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&resource=${RESOURCE}" https://login.microsoftonline.com/${TENANT_ID}/oauth2/token --no-progress-meter)
+          ACCESS_TOKEN=$(echo $BEARER_TOKEN | jq -r '.access_token')
           echo "Retrieving function invocation URL..."
-          INVOKE_URL_BASE=$(az functionapp function show -g $AZURE_RESOURCE_GROUP_NAME -n $AZURE_FUNCTIONAPP_NAME --function-name $AdaptiveCardTemplateExpansionFunctionName --query "invokeUrlTemplate" --output tsv)
-          INVOKE_URL_CODE=$(az functionapp function keys list -g $AZURE_RESOURCE_GROUP_NAME -n $AZURE_FUNCTIONAPP_NAME --function-name $AdaptiveCardTemplateExpansionFunctionName --query "default" --output tsv)
-          echo "ADAPTIVE_CARD_FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_CODE}" >> $GITHUB_OUTPUT
-          INVOKE_URL_BASE=$(az functionapp function show -g $AZURE_RESOURCE_GROUP_NAME -n $AZURE_FUNCTIONAPP_NAME --function-name $ContactUsFormParserFunctionName --query "invokeUrlTemplate" --output tsv)
-          INVOKE_URL_CODE=$(az functionapp function keys list -g $AZURE_RESOURCE_GROUP_NAME -n $AZURE_FUNCTIONAPP_NAME --function-name $ContactUsFormParserFunctionName --query "default" --output tsv)
-          echo "CONTACT_US_FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_CODE}" >> $GITHUB_OUTPUT
-          INVOKE_URL_BASE=$(az functionapp function show -g $AZURE_RESOURCE_GROUP_NAME -n $AZURE_FUNCTIONAPP_NAME --function-name $WebToLeadFormParserFunctionName --query "invokeUrlTemplate" --output tsv)
-          INVOKE_URL_CODE=$(az functionapp function keys list -g $AZURE_RESOURCE_GROUP_NAME -n $AZURE_FUNCTIONAPP_NAME --function-name $WebToLeadFormParserFunctionName --query "default" --output tsv)
-          echo "WEB_TO_LEAD_FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_CODE}" >> $GITHUB_OUTPUT
-
+          REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTION_APP_NAME}/slots/${SLOT_NAME}/functions/${AdaptiveCardTemplateExpansionFunctionName}?api-version=2023-12-01")
+          ADAPTIVE_CARD_FUNCTION_INVOKE_URL=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
+          REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTION_APP_NAME}/slots/${SLOT_NAME}/functions/${ContactUsFormParserFunctionName}?api-version=2023-12-01")
+          CONTACT_US_FUNCTION_INVOKE_URL=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
+          REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTION_APP_NAME}/slots/${SLOT_NAME}/functions/${WebToLeadFormParserFunctionName}?api-version=2023-12-01")
+          WEB_TO_LEAD_FUNCTION_INVOKE_URL=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
       - name: "Run Tests"
         shell: bash
         env:
