@@ -45,7 +45,7 @@ jobs:
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           slot-name: "staging"
 
-      - name: "Get Function Invocation URL"
+      - name: "Get Function Invocation URLs"
         id: get_invocation_url
         shell: bash
         run: |
@@ -105,5 +105,5 @@ jobs:
         shell: bash
         run: |
           echo "Swapping staging and production slots..."
-          az functionapp deployment slot swap --resource-group $AZURE_RESOURCE_GROUP_NAME --name $AZURE_FUNCTIONAPP_NAME --slot $SourceSlot --target-slot $TargetSlot
+          az functionapp deployment slot swap --resource-group ${{ env.AZURE_RESOURCE_GROUP_NAME }} --name ${{ env.AZURE_FUNCTIONAPP_NAME }} --slot ${{ env.SourceSlot }} --target-slot ${{ env.TargetSlot }}
           echo "Slot swap complete."
