@@ -59,6 +59,8 @@ jobs:
           echo "Subscription: ${SUBSCRIPTION_ID}"
           echo "Resource: ${RESOURCE}"
           echo "Slot: ${SLOT_NAME}"
+          echo "Access Token: ${ACCESS_TOKEN}"
+          az account show
 
           echo "Retrieving function invocation URL..."
           REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTION_APP_NAME}/slots/${SLOT_NAME}/functions/${AdaptiveCardTemplateExpansionFunctionName}?api-version=2023-12-01")
