@@ -63,7 +63,7 @@ jobs:
           echo "Retrieving function invocation URL..."
           REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTION_APP_NAME}/slots/${SLOT_NAME}/functions/${AdaptiveCardTemplateExpansionFunctionName}?api-version=2023-12-01")
           echo "REST API URL: ${REST_API_URL}"
-          curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template'
+          curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL}
 
       # - name: "Run Tests"
       #   shell: bash
