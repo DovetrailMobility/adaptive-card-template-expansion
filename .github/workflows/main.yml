@@ -19,7 +19,7 @@ jobs:
     env:
       AdaptiveCardTemplateExpansionFunctionName: "AdaptiveCardTemplateExpansionService"
       ContactUsFormParserFunctionName: "ContactUsFormParserService"
-      WebToLeadFormParserFunctionName: "ContactUsFormParserService"
+      WebToLeadFormParserFunctionName: "WebToLeadFormParserService"
     steps:
       - name: Checkout (GitHub)
         uses: actions/checkout@v3
