@@ -1,6 +1,8 @@
 import { app } from "@azure/functions";
 import ACData from "adaptivecards-templating";
 
+// Adding to test slot swap
+
 // Function to check if a string is a valid JSON
 const isJson = (str) => {
   if (!str) {

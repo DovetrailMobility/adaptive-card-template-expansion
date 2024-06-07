@@ -24,67 +24,67 @@ jobs:
       - name: Checkout (GitHub)
         uses: actions/checkout@v3
 
-      # - name: Login to Azure
-      #   uses: azure/login@v1
-      #   with:
-      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # - name: "Resolve Project Dependencies"
-      #   shell: bash
-      #   run: |
-      #     echo "Resolving project dependencies..."
-      #     pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-      #     npm install
-      #     popd
+      - name: "Resolve Project Dependencies"
+        shell: bash
+        run: |
+          echo "Resolving project dependencies..."
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          npm install
+          popd
 
-      # - name: "Deploy Azure Function"
-      #   uses: Azure/functions-action@v1
-      #   id: fa
-      #   with:
-      #     app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-      #     package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-      #     slot-name: "staging"
+      - name: "Deploy Azure Function"
+        uses: Azure/functions-action@v1
+        id: fa
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          slot-name: "staging"
 
-      # - name: "Get Function Invocation URLs"
-      #   id: get_invocation_url
-      #   shell: bash
-      #   run: |
-      #     echo "Getting access token..."
-      #     ACCESS_TOKEN=$(az account get-access-token --query "accessToken" -o tsv)
-      #     RESOURCE="https://management.azure.com/"
-      #     SUBSCRIPTION_ID=$(az account show --query "id" -o tsv)
-      #     SLOT_NAME="staging"
-      #     echo "Retrieving function invocation URL..."
-      #     REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${AdaptiveCardTemplateExpansionFunctionName}?api-version=2023-12-01")
-      #     INVOKE_URL_BASE=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
-      #     REST_API_URL=$(echo "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${AdaptiveCardTemplateExpansionFunctionName}/listKeys?api-version=2023-12-01")
-      #     INVOKE_URL_KEY=$(curl -X POST -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" -H "content-length: 0" ${REST_API_URL} --no-progress-meter | jq -r '.default')
-      #     echo "ADAPTIVE_CARD_FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_KEY}" >> $GITHUB_OUTPUT
-      #     REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${ContactUsFormParserFunctionName}?api-version=2023-12-01")
-      #     INVOKE_URL_BASE=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
-      #     REST_API_URL=$(echo "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${ContactUsFormParserFunctionName}/listKeys?api-version=2023-12-01")
-      #     INVOKE_URL_KEY=$(curl -X POST -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" -H "content-length: 0" ${REST_API_URL} --no-progress-meter | jq -r '.default')
-      #     echo "CONTACT_US_FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_KEY}" >> $GITHUB_OUTPUT
-      #     REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${WebToLeadFormParserFunctionName}?api-version=2023-12-01")
-      #     INVOKE_URL_BASE=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
-      #     REST_API_URL=$(echo "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${WebToLeadFormParserFunctionName}/listKeys?api-version=2023-12-01")
-      #     INVOKE_URL_KEY=$(curl -X POST -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" -H "content-length: 0" ${REST_API_URL} --no-progress-meter | jq -r '.default')
-      #     echo "WEB_TO_LEAD_FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_KEY}" >> $GITHUB_OUTPUT
+      - name: "Get Function Invocation URLs"
+        id: get_invocation_url
+        shell: bash
+        run: |
+          echo "Getting access token..."
+          ACCESS_TOKEN=$(az account get-access-token --query "accessToken" -o tsv)
+          RESOURCE="https://management.azure.com/"
+          SUBSCRIPTION_ID=$(az account show --query "id" -o tsv)
+          SLOT_NAME="staging"
+          echo "Retrieving function invocation URL..."
+          REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${AdaptiveCardTemplateExpansionFunctionName}?api-version=2023-12-01")
+          INVOKE_URL_BASE=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
+          REST_API_URL=$(echo "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${AdaptiveCardTemplateExpansionFunctionName}/listKeys?api-version=2023-12-01")
+          INVOKE_URL_KEY=$(curl -X POST -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" -H "content-length: 0" ${REST_API_URL} --no-progress-meter | jq -r '.default')
+          echo "ADAPTIVE_CARD_FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_KEY}" >> $GITHUB_OUTPUT
+          REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${ContactUsFormParserFunctionName}?api-version=2023-12-01")
+          INVOKE_URL_BASE=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
+          REST_API_URL=$(echo "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${ContactUsFormParserFunctionName}/listKeys?api-version=2023-12-01")
+          INVOKE_URL_KEY=$(curl -X POST -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" -H "content-length: 0" ${REST_API_URL} --no-progress-meter | jq -r '.default')
+          echo "CONTACT_US_FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_KEY}" >> $GITHUB_OUTPUT
+          REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${WebToLeadFormParserFunctionName}?api-version=2023-12-01")
+          INVOKE_URL_BASE=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
+          REST_API_URL=$(echo "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${WebToLeadFormParserFunctionName}/listKeys?api-version=2023-12-01")
+          INVOKE_URL_KEY=$(curl -X POST -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" -H "content-length: 0" ${REST_API_URL} --no-progress-meter | jq -r '.default')
+          echo "WEB_TO_LEAD_FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_KEY}" >> $GITHUB_OUTPUT
 
-      # - name: "Run Tests"
-      #   shell: bash
-      #   env:
-      #     ADAPTIVE_CARD_FUNCTION_INVOKE_URL: ${{ steps.get_invocation_url.outputs.ADAPTIVE_CARD_FUNCTION_INVOKE_URL }}
-      #     CONTACT_US_FUNCTION_INVOKE_URL: ${{ steps.get_invocation_url.outputs.CONTACT_US_FUNCTION_INVOKE_URL }}
-      #     WEB_TO_LEAD_FUNCTION_INVOKE_URL: ${{ steps.get_invocation_url.outputs.WEB_TO_LEAD_FUNCTION_INVOKE_URL }}
-      #   run: |
-      #     echo "Pausing for 60 seconds to ensure function is ready..."
-      #     sleep 60
-      #     echo "Running tests..."
-      #     echo "Adaptive Card Template Expansion Function Invocation URL: ${ADAPTIVE_CARD_FUNCTION_INVOKE_URL}"
-      #     echo "Contact Us Form Parser Function Invocation URL: ${CONTACT_US_FUNCTION_INVOKE_URL}"
-      #     echo "Web To Lead Form Parser Function Invocation URL: ${WEB_TO_LEAD_FUNCTION_INVOKE_URL}"
-      #     npm test
+      - name: "Run Tests"
+        shell: bash
+        env:
+          ADAPTIVE_CARD_FUNCTION_INVOKE_URL: ${{ steps.get_invocation_url.outputs.ADAPTIVE_CARD_FUNCTION_INVOKE_URL }}
+          CONTACT_US_FUNCTION_INVOKE_URL: ${{ steps.get_invocation_url.outputs.CONTACT_US_FUNCTION_INVOKE_URL }}
+          WEB_TO_LEAD_FUNCTION_INVOKE_URL: ${{ steps.get_invocation_url.outputs.WEB_TO_LEAD_FUNCTION_INVOKE_URL }}
+        run: |
+          echo "Pausing for 60 seconds to ensure function is ready..."
+          sleep 60
+          echo "Running tests..."
+          echo "Adaptive Card Template Expansion Function Invocation URL: ${ADAPTIVE_CARD_FUNCTION_INVOKE_URL}"
+          echo "Contact Us Form Parser Function Invocation URL: ${CONTACT_US_FUNCTION_INVOKE_URL}"
+          echo "Web To Lead Form Parser Function Invocation URL: ${WEB_TO_LEAD_FUNCTION_INVOKE_URL}"
+          npm test
 
   deploy-prd:
     name: Deploy to Production Environment
