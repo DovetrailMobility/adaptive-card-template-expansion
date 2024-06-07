@@ -52,7 +52,6 @@ jobs:
           echo "Getting access token..."
           ACCESS_TOKEN=$(az account get-access-token --query "accessToken" -o tsv)
           RESOURCE="https://management.azure.com/"
-          TENANT_ID=$(az account show --query "tenantId" -o tsv)
           SUBSCRIPTION_ID=$(az account show --query "id" -o tsv)
           SLOT_NAME="staging"
           echo "Retrieving function invocation URL..."
@@ -93,8 +92,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     env:
-      SourceSlot: "staging"
-      TargetSlot: "production"
+      AZURE_FUNCTIONAPP_SOURCE_SLOT: "staging"
+      AZURE_FUNCTIONAPP_TARGET_SLOT: "production"
     steps:
       - name: Login to Azure
         uses: azure/login@v1
@@ -104,6 +103,18 @@ jobs:
       - name: "Swap Staging and Production Slots"
         shell: bash
         run: |
+          echo "Getting access token..."
+          ACCESS_TOKEN=$(az account get-access-token --query "accessToken" -o tsv)
+          RESOURCE="https://management.azure.com/"
+          SUBSCRIPTION_ID=$(az account show --query "id" -o tsv)
           echo "Swapping staging and production slots..."
-          az functionapp deployment slot swap --resource-group ${{ env.AZURE_RESOURCE_GROUP_NAME }} --name ${{ env.AZURE_FUNCTIONAPP_NAME }} --slot ${{ env.SourceSlot }} --target-slot ${{ env.TargetSlot }}
+          REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${{ env.AZURE_RESOURCE_GROUP_NAME }}/providers/Microsoft.Web/sites/${{ env.AZURE_FUNCTIONAPP_NAME }}/slots/${{ env.AZURE_FUNCTIONAPP_SOURCE_SLOT }}/slotsswap?api-version=2023-12-01")
+          curl -X POST -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" --data '{"preserveVnet": "true", "targetSlot": "${{ env.AZURE_FUNCTIONAPP_TARGET_SLOT }}"}' ${REST_API_URL} --no-progress-meter
           echo "Slot swap complete."
+
+      # - name: "Swap Staging and Production Slots"
+      #   shell: bash
+      #   run: |
+      #     echo "Swapping staging and production slots..."
+      #     az functionapp deployment slot swap --resource-group ${{ env.AZURE_RESOURCE_GROUP_NAME }} --name ${{ env.AZURE_FUNCTIONAPP_NAME }} --slot ${{ env.AZURE_FUNCTIONAPP_SOURCE_SLOT }} --target-slot ${{ env.AZURE_FUNCTIONAPP_TARGET_SLOT }}
+      #     echo "Slot swap complete."
