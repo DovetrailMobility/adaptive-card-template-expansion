@@ -29,6 +29,7 @@ async function getExpandedTemplatePayload(templatePayload, dataPayload) {
   return actualCardPayload;
 }
 
+// timeout increased as function on consumption plan needs to be woken up
 describe("AdaptiveCardTemplateExpansionService", () => {
   it("should return the expected card payload", async () => {
     const actualCardPayload = await getExpandedTemplatePayload(
@@ -36,7 +37,7 @@ describe("AdaptiveCardTemplateExpansionService", () => {
       dataPayload,
     );
     assert.deepStrictEqual(actualCardPayload, expectedCardPayload);
-  });
+  }).timeout(10000);
 
   it("should return an error when template payload is undefined", async () => {
     const expectedCardPayload = {

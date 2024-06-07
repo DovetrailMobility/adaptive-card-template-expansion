@@ -1,7 +1,5 @@
 import { app } from "@azure/functions";
 
-// Adding to test slot swap
-
 // Function to parse a Contact Us form submission and extract the field values
 
 app.http("ContactUsFormParserService", {
