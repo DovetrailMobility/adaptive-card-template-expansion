@@ -1,7 +1,7 @@
 name: Deploy Node.js project to Azure Function App
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
