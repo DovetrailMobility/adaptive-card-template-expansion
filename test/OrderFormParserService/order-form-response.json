@@ -1,0 +1,40 @@
+{
+  "orderId": "19696",
+  "status": "on-hold",
+  "dateCreated": "2024-05-24T11:28:37",
+  "total": "995.00",
+  "billingAddress": {
+    "firstName": "Paul Islwyn",
+    "lastName": "Thomas",
+    "email": "paulislwyn@outlook.com",
+    "phone": "07921263362",
+    "address1": "Lydmore Farm",
+    "address2": "Dyffryn",
+    "city": "Vale of Glamorgan",
+    "state": "South Glamorgan",
+    "postcode": "CF5 6SU",
+    "country": "GB"
+  },
+  "shippingAddress": {
+    "firstName": "Geoff Hunt",
+    "lastName": "Thomas",
+    "phone": "",
+    "address1": "Cartref Cynnes",
+    "address2": "Flat 61, Llansteffan Road, Johnstown",
+    "city": "Carmarthen",
+    "state": "Carmarthenshire",
+    "postcode": "SA31 3NQ",
+    "country": "GB"
+  },
+  "paymentMethod": "bacs",
+  "paymentMethodTitle": "Direct Bank Transfer",
+  "lineItems": [
+    {
+      "productId": "19543",
+      "name": "Quingo Vitess 2",
+      "quantity": "1",
+      "total": "995.00",
+      "sku": "ED/333/300"
+    }
+  ]
+}
