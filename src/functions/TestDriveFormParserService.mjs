@@ -46,11 +46,11 @@ app.http("TestDriveFormParserService", {
 
       // parse order request
       const orderResponse = {};
-      orderResponse.orderId = String(orderRequest?.id);
+      orderResponse.orderId = String(orderRequest.id);
       orderResponse.status = "new";
-      // orderResponse.dateCreated = orderRequest?.date_created;
-      orderResponse.dateCreated = convertDate(orderRequest?.date_created);
-      orderResponse.total = orderRequest?.total;
+      orderResponse.dateCreated = convertDate(orderRequest.date_created);
+      orderResponse.total = orderRequest.total;
+      orderResponse.orderUrl = orderRequest._links.self[0].href;
 
       orderResponse.contact = extractContactDetails(orderRequest?.meta_data);
 
