@@ -22,6 +22,7 @@ jobs:
       WebToLeadFormParserFunctionName: "WebToLeadFormParserService"
       OrderFormParserFunctionName: "OrderFormParserService"
       TestDriveFormParserFunctionName: "TestDriveFormParserService"
+      GetOrderTypeServiceFunctionName: "GetOrderTypeService"
     steps:
       - name: Checkout (GitHub)
         uses: actions/checkout@v3
@@ -82,6 +83,11 @@ jobs:
           REST_API_URL=$(echo "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${TestDriveFormParserFunctionName}/listKeys?api-version=2023-12-01")
           INVOKE_URL_KEY=$(curl -X POST -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" -H "content-length: 0" ${REST_API_URL} --no-progress-meter | jq -r '.default')
           echo "TEST_DRIVE_FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_KEY}" >> $GITHUB_OUTPUT
+          REST_API_URL=("https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${GetOrderTypeServiceFunctionName}?api-version=2023-12-01")
+          INVOKE_URL_BASE=$(curl -X GET -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" ${REST_API_URL} --no-progress-meter | jq -r '.properties.invoke_url_template')
+          REST_API_URL=$(echo "https://management.azure.com/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${AZURE_RESOURCE_GROUP_NAME}/providers/Microsoft.Web/sites/${AZURE_FUNCTIONAPP_NAME}/slots/${SLOT_NAME}/functions/${GetOrderTypeServiceFunctionName}/listKeys?api-version=2023-12-01")
+          INVOKE_URL_KEY=$(curl -X POST -H "Authorization: Bearer ${ACCESS_TOKEN}" -H "Content-Type: application/json" -H "content-length: 0" ${REST_API_URL} --no-progress-meter | jq -r '.default')
+          echo "ORDER_TYPE_FUNCTION_INVOKE_URL=${INVOKE_URL_BASE}?code=${INVOKE_URL_KEY}" >> $GITHUB_OUTPUT
 
       - name: "Run Tests"
         shell: bash
@@ -91,6 +97,7 @@ jobs:
           WEB_TO_LEAD_FUNCTION_INVOKE_URL: ${{ steps.get_invocation_url.outputs.WEB_TO_LEAD_FUNCTION_INVOKE_URL }}
           ORDER_FUNCTION_INVOKE_URL: ${{ steps.get_invocation_url.outputs.ORDER_FUNCTION_INVOKE_URL }}
           TEST_DRIVE_FUNCTION_INVOKE_URL: ${{ steps.get_invocation_url.outputs.TEST_DRIVE_FUNCTION_INVOKE_URL }}
+          ORDER_TYPE_FUNCTION_INVOKE_URL: ${{ steps.get_invocation_url.outputs.ORDER_TYPE_FUNCTION_INVOKE_URL }}
         run: |
           echo "Pausing for 60 seconds to ensure function is ready..."
           sleep 60
