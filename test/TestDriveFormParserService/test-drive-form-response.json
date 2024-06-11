@@ -1,7 +1,9 @@
 {
   "orderId": "20001",
   "status": "new",
-  "dateCreated": "2024-06-06T09:32:39.000Z",
+  "createdTimestamp": "2024-06-06T09:32:39.000Z",
+  "createdDate": "06-06-2024",
+  "createdTime": "09:32:39",
   "total": "995.00",
   "orderUrl": "https://www.usedmobilityscootershop.co.uk/wp-json/wc/v3/orders/20001",
   "contact": {
