@@ -89,6 +89,9 @@ app.http("TestDriveFormParserService", {
       // parse order request
       const orderResponse = {};
       orderResponse.orderId = String(orderRequest.id);
+
+      context.log("Processing orderId:", orderResponse.orderId);
+
       orderResponse.status = "new";
       orderResponse.createdTimestamp = convertDate(orderRequest.date_created);
       orderResponse.createdDate = getDateFromISOString(
