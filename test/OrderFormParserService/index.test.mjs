@@ -34,12 +34,6 @@ describe("OrderFormParserService", () => {
     assert.deepStrictEqual(actualResponsePayload, expectedResponsePayload);
   });
 
-  it("should convert dateCreated to ISO string", async () => {
-    const actualType = typeof responsePayload.dateCreated;
-    const expectedType = "string";
-    assert.strictEqual(actualType, expectedType);
-  });
-
   it("should return orderId as string", async () => {
     const actualType = typeof responsePayload.orderId;
     const expectedType = "string";
@@ -63,6 +57,30 @@ describe("OrderFormParserService", () => {
     const expectedResponsePayload = {
       error:
         "An error occurred processing the request: Request body is missing or empty.",
+    };
+    assert.deepStrictEqual(actualResponsePayload, expectedResponsePayload);
+  });
+
+  it("should return an error when the created timmestamp is missing", async () => {
+    const actualResponsePayload = await orderFormParserService({
+      ...requestPayload,
+      date_created: undefined,
+    });
+    const expectedResponsePayload = {
+      error:
+        "An error occurred processing the request: Date string is missing or empty.",
+    };
+    assert.deepStrictEqual(actualResponsePayload, expectedResponsePayload);
+  });
+
+  it("should return an error when the created timestamp is invalid", async () => {
+    const actualResponsePayload = await orderFormParserService({
+      ...requestPayload,
+      date_created: "invalid",
+    });
+    const expectedResponsePayload = {
+      error:
+        "An error occurred processing the request: Error converting date string: Invalid time value",
     };
     assert.deepStrictEqual(actualResponsePayload, expectedResponsePayload);
   });

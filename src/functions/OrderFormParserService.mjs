@@ -4,8 +4,55 @@ app.http("OrderFormParserService", {
   methods: ["POST"],
   authLevel: "function",
   handler: async (request, context) => {
+    // convert date string to date object
+    function convertDate(dateString) {
+      if (!dateString) {
+        throw new Error("Date string is missing or empty.");
+      }
+
+      try {
+        const date = new Date(dateString);
+        return date.toISOString();
+      } catch (error) {
+        throw new Error(`Error converting date string: ${error.message}`);
+      }
+    }
+
+    function getDateFromISOString(dateTimeISOString) {
+      if (!dateTimeISOString) {
+        throw new Error("Date time string is missing or empty.");
+      }
+
+      try {
+        const date = dateTimeISOString
+          .split("T")[0]
+          .split("-")
+          .reverse()
+          .join("-");
+        return date;
+      } catch (error) {
+        throw new Error(
+          `Error extracting date from ISO string: ${error.message}`,
+        );
+      }
+    }
+
+    function getTimeFromISOString(dataTimeISOString) {
+      if (!dataTimeISOString) {
+        throw new Error("Date time string is missing or empty.");
+      }
+
+      try {
+        const time = dataTimeISOString.split("T")[1].split(".")[0];
+        return time;
+      } catch (error) {
+        throw new Error(
+          `Error extracting time from ISO string: ${error.message}`,
+        );
+      }
+    }
+
     context.log("WooCommerce order request received.");
-    context.log("Request body: ", request.body);
 
     try {
       if (!request.body) {
@@ -17,8 +64,17 @@ app.http("OrderFormParserService", {
       // parse order request
       const orderResponse = {};
       orderResponse.orderId = String(orderRequest.id);
+
+      context.log("Processing orderId:", orderResponse.orderId);
+
       orderResponse.status = orderRequest.status;
-      orderResponse.dateCreated = orderRequest.date_created;
+      orderResponse.createdTimestamp = convertDate(orderRequest.date_created);
+      orderResponse.createdDate = getDateFromISOString(
+        orderResponse.createdTimestamp,
+      );
+      orderResponse.createdTime = getTimeFromISOString(
+        orderResponse.createdTimestamp,
+      );
       orderResponse.total = orderRequest.total;
       orderResponse.orderUrl = orderRequest._links.self[0].href;
       orderResponse.billingAddress = {};

@@ -1,7 +1,9 @@
 {
   "orderId": "19696",
   "status": "on-hold",
-  "dateCreated": "2024-05-24T11:28:37",
+  "createdTimestamp": "2024-05-24T11:28:37.000Z",
+  "createdDate": "24-05-2024",
+  "createdTime": "11:28:37",
   "total": "995.00",
   "orderUrl": "https://www.usedmobilityscootershop.co.uk/wp-json/wc/v3/orders/19696",
   "billingAddress": {

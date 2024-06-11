@@ -61,4 +61,28 @@ describe("TestDriveFormParserService", () => {
     };
     assert.deepStrictEqual(actualResponsePayload, expectedResponsePayload);
   });
+
+  it("should return an error when the created timmestamp is missing", async () => {
+    const actualResponsePayload = await testDriveFormParserService({
+      ...requestPayload,
+      date_created: undefined,
+    });
+    const expectedResponsePayload = {
+      error:
+        "An error occurred processing the request: Date string is missing or empty.",
+    };
+    assert.deepStrictEqual(actualResponsePayload, expectedResponsePayload);
+  });
+
+  it("should return an error when the created timestamp is invalid", async () => {
+    const actualResponsePayload = await testDriveFormParserService({
+      ...requestPayload,
+      date_created: "invalid",
+    });
+    const expectedResponsePayload = {
+      error:
+        "An error occurred processing the request: Error converting date string: Invalid time value",
+    };
+    assert.deepStrictEqual(actualResponsePayload, expectedResponsePayload);
+  });
 });
