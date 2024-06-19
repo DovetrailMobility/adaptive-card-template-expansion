@@ -1,9 +1,12 @@
 name: Deploy Node.js project to Azure Function App
 
+# Do not trigger deployment workflow on changes to adaptive_card_templates directory
 on:
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - "adaptive_card_templates/**"
 
 env:
   AZURE_RESOURCE_GROUP_NAME: "w2l-prd-uks-rg" # resource group name on Azure
