@@ -1,0 +1,241 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "New Test Drive Booking",
+          "wrap": true,
+          "size": "ExtraLarge",
+          "weight": "Bolder",
+          "color": "Dark",
+          "spacing": "None"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Order ID: ${orderId}",
+          "wrap": true,
+          "spacing": "None",
+          "weight": "Lighter"
+        }
+      ],
+      "style": "good",
+      "spacing": "None"
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Order Details",
+          "wrap": true,
+          "weight": "Bolder",
+          "size": "Large",
+          "color": "Accent"
+        },
+        {
+          "type": "FactSet",
+          "facts": [
+            {
+              "title": "Date Created",
+              "value": "${createdDate}"
+            },
+            {
+              "title": "Time Created",
+              "value": "${createdTime}"
+            },
+            {
+              "title": "Total Amount",
+              "value": "£${total}"
+            },
+            {
+              "title": "Order Status",
+              "value": "${status}"
+            }
+          ],
+          "spacing": "Small"
+        }
+      ],
+      "separator": true,
+      "spacing": "ExtraLarge"
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Line Items",
+          "wrap": true,
+          "size": "Large",
+          "weight": "Bolder",
+          "color": "Accent"
+        },
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Make/Model",
+                  "wrap": true,
+                  "spacing": "None",
+                  "weight": "Bolder"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "SKU",
+                  "wrap": true,
+                  "weight": "Bolder"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Price",
+                  "wrap": true,
+                  "weight": "Bolder"
+                }
+              ]
+            }
+          ],
+          "spacing": "Small"
+        },
+        {
+          "type": "ColumnSet",
+          "$data": "${lineItems}",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "${name}",
+                  "wrap": true,
+                  "size": "Small"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "${sku}",
+                  "wrap": true,
+                  "size": "Small"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "£${total}",
+                  "wrap": true,
+                  "size": "Small"
+                }
+              ]
+            }
+          ],
+          "spacing": "None"
+        }
+      ],
+      "separator": true,
+      "spacing": "ExtraLarge"
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Contact Details",
+          "wrap": true,
+          "size": "Large",
+          "color": "Accent",
+          "weight": "Bolder"
+        },
+        {
+          "type": "FactSet",
+          "facts": [
+            {
+              "title": "Name",
+              "value": "${firstName} ${lastName}"
+            },
+            {
+              "title": "Email",
+              "value": "${email}"
+            },
+            {
+              "title": "Phone",
+              "value": "${Phone}"
+            },
+            {
+              "title": "City",
+              "value": "${townCity}"
+            },
+            {
+              "title": "County",
+              "value": "${county}"
+            },
+            {
+              "title": "Postcode",
+              "value": "${postcode}"
+            }
+          ],
+          "spacing": "Small",
+          "$data": "${contact}"
+        },
+        {
+          "type": "Container",
+          "items": [
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.OpenUrl",
+                  "title": "View Order",
+                  "url": "https://www.usedmobilityscootershop.co.uk/wp-admin/post.php?post=${orderId}&action=edit"
+                },
+                {
+                  "type": "Action.OpenUrl",
+                  "title": "Call",
+                  "url": "https://teams.microsoft.com/l/call/0/0?users=4:${contact.phone}"
+                },
+                {
+                  "type": "Action.OpenUrl",
+                  "title": "Email",
+                  "url": "https://outlook.office.com/?path=/mail/action/compose&to=${contact.email}&subject=Used%20Mobility%20Scooter%20Shop%20-%20Order%20%23${orderId}&body=Hi%20${contact.firstName}%2C"
+                }
+              ]
+            }
+          ],
+          "separator": true,
+          "spacing": "ExtraLarge"
+        }
+      ],
+      "separator": true,
+      "spacing": "ExtraLarge"
+    }
+  ]
+}

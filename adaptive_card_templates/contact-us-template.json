@@ -1,0 +1,71 @@
+{
+  "type": "AdaptiveCard",
+  "hideOriginalBody": true,
+  "originator": "1ee3a26a-40b2-4fe3-b8da-2d2f6b9ac997",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "ExtraLarge",
+      "weight": "Bolder",
+      "text": "Contact Us Form Received",
+      "color": "Accent"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "${name}",
+              "wrap": true,
+              "size": "Large"
+            }
+          ],
+          "width": "stretch"
+        }
+      ]
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {
+          "title": "Email:",
+          "value": "${email}"
+        },
+        {
+          "title": "Phone:",
+          "value": "${phone}"
+        },
+        {
+          "title": "Message",
+          "value": "${message}"
+        }
+      ]
+    },
+    {
+      "type": "Input.Toggle",
+      "title": "Customer Contacted",
+      "id": "customerContacted"
+    },
+    {
+      "type": "ActionSet",
+      "actions": [
+        {
+          "type": "Action.OpenUrl",
+          "title": "Call",
+          "url": "https://teams.microsoft.com/l/call/0/0?users=4:${phone}"
+        },
+        {
+          "type": "Action.OpenUrl",
+          "title": "Email",
+          "url": "https://outlook.office.com/?path=/mail/action/compose&to=${email}&subject=Reponding%20to%20your%20enquiry&body=Hi%20${name}%2C"
+        }
+      ]
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4"
+}
