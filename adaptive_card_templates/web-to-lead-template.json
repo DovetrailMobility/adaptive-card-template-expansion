@@ -1,0 +1,195 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "ExtraLarge",
+      "weight": "Bolder",
+      "text": "Purchasing Lead Received",
+      "color": "Accent"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "${firstName} ${lastName}",
+              "wrap": true,
+              "size": "Large"
+            },
+            {
+              "type": "TextBlock",
+              "text": "Sell or Part-exchange: ${sellOrPartEx}",
+              "wrap": true,
+              "spacing": "None",
+              "weight": "Default"
+            }
+          ],
+          "width": "stretch"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Contact Details:",
+          "wrap": true,
+          "size": "Medium",
+          "weight": "Bolder",
+          "color": "Accent"
+        },
+        {
+          "type": "FactSet",
+          "facts": [
+            {
+              "title": "Email:",
+              "value": "${email}"
+            },
+            {
+              "title": "Phone:",
+              "value": "${phone}"
+            },
+            {
+              "title": "Town/City:",
+              "value": "${townOrCity}"
+            },
+            {
+              "title": "County",
+              "value": "${county}"
+            }
+          ],
+          "spacing": "Small"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Scooter Details",
+          "wrap": true,
+          "size": "Medium",
+          "weight": "Bolder",
+          "spacing": "Small",
+          "color": "Accent"
+        },
+        {
+          "type": "FactSet",
+          "facts": [
+            {
+              "title": "Make/Model:",
+              "value": "${makeAndModel}"
+            },
+            {
+              "title": "Condition",
+              "value": "${condition}"
+            },
+            {
+              "title": "Age",
+              "value": "${age}"
+            },
+            {
+              "title": "Additional Info:",
+              "value": "${additionalInfo}"
+            }
+          ],
+          "spacing": "Small"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "$when": "${count(images) > 0}",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Photos",
+          "wrap": true,
+          "size": "Medium",
+          "weight": "Bolder",
+          "color": "Accent"
+        },
+        {
+          "type": "ImageSet",
+          "images": [
+            {
+              "type": "Image",
+              "size": "Large",
+              "$data": "${images}",
+              "url": "${$data}",
+              "width": "300px",
+              "spacing": "Small",
+              "selectAction": {
+                "type": "Action.OpenUrl",
+                "tooltip": "Opem image",
+                "url": "${$data}"
+              }
+            }
+          ],
+          "imageSize": "Large"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Lead Details",
+          "wrap": true,
+          "size": "Medium",
+          "weight": "Bolder",
+          "color": "Accent"
+        }
+      ]
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {
+          "title": "Lead Source",
+          "value": "${leadSource}"
+        },
+        {
+          "title": "Web Source",
+          "value": "${webSource}"
+        }
+      ],
+      "spacing": "Small"
+    },
+    {
+      "type": "ActionSet",
+      "actions": [
+        {
+          "type": "Action.OpenUrl",
+          "title": "Call",
+          "url": "https://teams.microsoft.com/l/call/0/0?users=4:${phone}"
+        },
+        {
+          "type": "Action.OpenUrl",
+          "title": "Email",
+          "url": "https://outlook.office.com/?path=/mail/action/compose&to=${email}&subject=Reponding%20to%20your%20enquiry&body=Hi%20${firstName}%2C"
+        },
+        {
+          "type": "Action.OpenUrl",
+          "title": "View Lead",
+          "url": "https://flow-agility-7197.lightning.force.com/lightning/r/Lead/${leadId}/view"
+        },
+        {
+          "type": "Action.OpenUrl",
+          "title": "View Images",
+          "url": "${imageUrl}"
+        }
+      ]
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4"
+}
