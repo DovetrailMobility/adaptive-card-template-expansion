@@ -29,6 +29,11 @@ app.http("WebToLeadFormParserService", {
       // Add the web source to the output data
       outputData.webSource = "USEDMOBILITYSCOOTERSHOP.CO.UK";
 
+      // remove any spaces from the phone number
+      if (outputData.phone) {
+        outputData.phone = outputData.phone.replace(/\s/g, "");
+      }
+
       context.log("Web-to-Lead form submission successfully parsed");
 
       return {
