@@ -41,4 +41,17 @@ describe("WebToLeadFormParserService", () => {
     const actualParsedFormPayload = await getParsedFormPayload(undefined);
     assert.deepStrictEqual(actualParsedFormPayload, expectedParsedFormPayload);
   });
+
+  it("should correctly set the value of websource", async () => {
+    const actualParsedFormPayload = await getParsedFormPayload(formPayload);
+    assert.strictEqual(
+      actualParsedFormPayload.webSource,
+      "USEDMOBILITYSCOOTERSHOP.CO.UK",
+    );
+  });
+
+  it("should remove spaces from the phone number", async () => {
+    const actualParsedFormPayload = await getParsedFormPayload(formPayload);
+    assert.strictEqual(actualParsedFormPayload.phone, "07718991900");
+  });
 });
