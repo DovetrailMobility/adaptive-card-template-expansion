@@ -11,9 +11,10 @@
   "condition": "Excellent",
   "age": "0 - 3 yrs",
   "additionalInfo": "Some additional info about the condition of the product.",
-  "images": [
-    "https://www.myexamplewebsite.com/65b3d667e591d.jpeg",
-    "https://www.myexamplewebsite.com/65b3d667e5fbd.jpeg",
-    "https://www.myexamplewebsite.com/65b3d667e62da.jpeg"
-  ]
+  "image": "",
+  "leadSource": "Google",
+  "webSource": "USEDMOBILITYSCOOTERSHOP.CO.UK",
+  "imageUrl": null,
+  "leadId": "00QSr00000AxfPaMAJ",
+  "images": []
 }

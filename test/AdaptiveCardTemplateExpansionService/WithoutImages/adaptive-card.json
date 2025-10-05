@@ -1,5 +1,7 @@
 {
   "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4",
   "body": [
     {
       "type": "TextBlock",
@@ -47,10 +49,22 @@
         {
           "type": "FactSet",
           "facts": [
-            { "title": "Email:", "value": "johndoe@someemaildomain.com" },
-            { "title": "Phone:", "value": "07000000000" },
-            { "title": "Town/City:", "value": "Nowhere" },
-            { "title": "County", "value": "Vast County" }
+            {
+              "title": "Email:",
+              "value": "johndoe@someemaildomain.com"
+            },
+            {
+              "title": "Phone:",
+              "value": "07000000000"
+            },
+            {
+              "title": "Town/City:",
+              "value": "Nowhere"
+            },
+            {
+              "title": "County",
+              "value": "Vast County"
+            }
           ],
           "spacing": "Small"
         }
@@ -71,9 +85,18 @@
         {
           "type": "FactSet",
           "facts": [
-            { "title": "Make/Model:", "value": "Bigcorp 3000" },
-            { "title": "Condition", "value": "Excellent" },
-            { "title": "Age", "value": "0 - 3 yrs" },
+            {
+              "title": "Make/Model:",
+              "value": "Bigcorp 3000"
+            },
+            {
+              "title": "Condition",
+              "value": "Excellent"
+            },
+            {
+              "title": "Age",
+              "value": "0 - 3 yrs"
+            },
             {
               "title": "Additional Info:",
               "value": "Some additional info about the condition of the product."
@@ -88,55 +111,27 @@
       "items": [
         {
           "type": "TextBlock",
-          "text": "Photos",
+          "text": "Lead Details",
           "wrap": true,
           "size": "Medium",
           "weight": "Bolder",
           "color": "Accent"
-        },
-        {
-          "type": "ImageSet",
-          "images": [
-            {
-              "type": "Image",
-              "size": "Large",
-              "url": "https://www.myexamplewebsite.com/65b3d667e591d.jpeg",
-              "width": "300px",
-              "spacing": "Small",
-              "selectAction": {
-                "type": "Action.OpenUrl",
-                "tooltip": "Opem image",
-                "url": "https://www.myexamplewebsite.com/65b3d667e591d.jpeg"
-              }
-            },
-            {
-              "type": "Image",
-              "size": "Large",
-              "url": "https://www.myexamplewebsite.com/65b3d667e5fbd.jpeg",
-              "width": "300px",
-              "spacing": "Small",
-              "selectAction": {
-                "type": "Action.OpenUrl",
-                "tooltip": "Opem image",
-                "url": "https://www.myexamplewebsite.com/65b3d667e5fbd.jpeg"
-              }
-            },
-            {
-              "type": "Image",
-              "size": "Large",
-              "url": "https://www.myexamplewebsite.com/65b3d667e62da.jpeg",
-              "width": "300px",
-              "spacing": "Small",
-              "selectAction": {
-                "type": "Action.OpenUrl",
-                "tooltip": "Opem image",
-                "url": "https://www.myexamplewebsite.com/65b3d667e62da.jpeg"
-              }
-            }
-          ],
-          "imageSize": "Large"
         }
       ]
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {
+          "title": "Lead Source",
+          "value": "Google"
+        },
+        {
+          "title": "Web Source",
+          "value": "USEDMOBILITYSCOOTERSHOP.CO.UK"
+        }
+      ],
+      "spacing": "Small"
     },
     {
       "type": "ActionSet",
@@ -150,10 +145,13 @@
           "type": "Action.OpenUrl",
           "title": "Email",
           "url": "https://outlook.office.com/?path=/mail/action/compose&to=johndoe@someemaildomain.com&subject=Reponding%20to%20your%20enquiry&body=Hi%20John%2C"
+        },
+        {
+          "type": "Action.OpenUrl",
+          "title": "View Lead",
+          "url": "https://flow-agility-7197.lightning.force.com/lightning/r/Lead/00QSr00000AxfPaMAJ/view"
         }
       ]
     }
-  ],
-  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-  "version": "1.4"
+  ]
 }

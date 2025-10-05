@@ -1,7 +1,7 @@
 {
+  "type": "AdaptiveCard",
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
   "version": "1.4",
-  "type": "AdaptiveCard",
   "body": [
     {
       "type": "TextBlock",
@@ -19,13 +19,13 @@
             {
               "type": "TextBlock",
               "weight": "Bolder",
-              "text": "${firstName} ${lastName}",
+              "text": "John Doe",
               "wrap": true,
               "size": "Large"
             },
             {
               "type": "TextBlock",
-              "text": "Sell or Part-exchange: ${sellOrPartEx}",
+              "text": "Sell or Part-exchange: Sell",
               "wrap": true,
               "spacing": "None",
               "weight": "Default"
@@ -51,19 +51,19 @@
           "facts": [
             {
               "title": "Email:",
-              "value": "${email}"
+              "value": "johndoe@someemaildomain.com"
             },
             {
               "title": "Phone:",
-              "value": "${phone}"
+              "value": "07000000000"
             },
             {
               "title": "Town/City:",
-              "value": "${townOrCity}"
+              "value": "Nowhere"
             },
             {
               "title": "County",
-              "value": "${county}"
+              "value": "Vast County"
             }
           ],
           "spacing": "Small"
@@ -87,19 +87,19 @@
           "facts": [
             {
               "title": "Make/Model:",
-              "value": "${makeAndModel}"
+              "value": "Bigcorp 3000"
             },
             {
               "title": "Condition",
-              "value": "${condition}"
+              "value": "Excellent"
             },
             {
               "title": "Age",
-              "value": "${age}"
+              "value": "0 - 3 yrs"
             },
             {
               "title": "Additional Info:",
-              "value": "${additionalInfo}"
+              "value": "Some additional info about the condition of the product."
             }
           ],
           "spacing": "Small"
@@ -108,7 +108,6 @@
     },
     {
       "type": "Container",
-      "$when": "${count(images) > 0}",
       "items": [
         {
           "type": "TextBlock",
@@ -124,14 +123,37 @@
             {
               "type": "Image",
               "size": "Large",
-              "$data": "${images}",
-              "url": "${$data}",
+              "url": "https://www.myexamplewebsite.com/65b3d667e591d.jpeg",
               "width": "300px",
               "spacing": "Small",
               "selectAction": {
                 "type": "Action.OpenUrl",
                 "tooltip": "Opem image",
-                "url": "${$data}"
+                "url": "https://www.myexamplewebsite.com/65b3d667e591d.jpeg"
+              }
+            },
+            {
+              "type": "Image",
+              "size": "Large",
+              "url": "https://www.myexamplewebsite.com/65b3d667e5fbd.jpeg",
+              "width": "300px",
+              "spacing": "Small",
+              "selectAction": {
+                "type": "Action.OpenUrl",
+                "tooltip": "Opem image",
+                "url": "https://www.myexamplewebsite.com/65b3d667e5fbd.jpeg"
+              }
+            },
+            {
+              "type": "Image",
+              "size": "Large",
+              "url": "https://www.myexamplewebsite.com/65b3d667e62da.jpeg",
+              "width": "300px",
+              "spacing": "Small",
+              "selectAction": {
+                "type": "Action.OpenUrl",
+                "tooltip": "Opem image",
+                "url": "https://www.myexamplewebsite.com/65b3d667e62da.jpeg"
               }
             }
           ],
@@ -140,17 +162,54 @@
       ]
     },
     {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Lead Details",
+          "wrap": true,
+          "size": "Medium",
+          "weight": "Bolder",
+          "color": "Accent"
+        }
+      ]
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {
+          "title": "Lead Source",
+          "value": "Google"
+        },
+        {
+          "title": "Web Source",
+          "value": "USEDMOBILITYSCOOTERSHOP.CO.UK"
+        }
+      ],
+      "spacing": "Small"
+    },
+    {
       "type": "ActionSet",
       "actions": [
         {
           "type": "Action.OpenUrl",
           "title": "Call",
-          "url": "https://teams.microsoft.com/l/call/0/0?users=4:${phone}"
+          "url": "https://teams.microsoft.com/l/call/0/0?users=4:07000000000"
         },
         {
           "type": "Action.OpenUrl",
           "title": "Email",
-          "url": "https://outlook.office.com/?path=/mail/action/compose&to=${email}&subject=Reponding%20to%20your%20enquiry&body=Hi%20${firstName}%2C"
+          "url": "https://outlook.office.com/?path=/mail/action/compose&to=johndoe@someemaildomain.com&subject=Reponding%20to%20your%20enquiry&body=Hi%20John%2C"
+        },
+        {
+          "type": "Action.OpenUrl",
+          "title": "View Lead",
+          "url": "https://flow-agility-7197.lightning.force.com/lightning/r/Lead/00QSr00000AxfPaMAJ/view"
+        },
+        {
+          "type": "Action.OpenUrl",
+          "title": "View Images",
+          "url": "https://dovetrailmobilityltd.sharepoint.com/:f:/s/purchasing/EghmKnYp8ORPtXaL8TD3QBQBwNU4SG2waW6Iy5BXJzJXlg"
         }
       ]
     }
