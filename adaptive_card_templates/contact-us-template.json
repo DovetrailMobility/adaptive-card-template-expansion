@@ -61,7 +61,7 @@
         {
           "type": "Action.OpenUrl",
           "title": "Email",
-          "url": "https://outlook.office.com/?path=/mail/action/compose&to=${email}&subject=Reponding%20to%20your%20enquiry&body=Hi%20${name}%2C"
+          "url": "mailto:${email}?subject=Responding%20to%20your%20enquiry&body=Hi%20${name}%2C"
         }
       ]
     }
