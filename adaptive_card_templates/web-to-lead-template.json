@@ -117,23 +117,27 @@
           "color": "Accent"
         },
         {
-          "type": "ImageSet",
-          "images": [
+          "$data": "${images}",
+          "type": "ColumnSet",
+          "columns": [
             {
-              "type": "Image",
-              "size": "Large",
-              "$data": "${images}",
-              "url": "${$data}",
-              "width": "300px",
-              "spacing": "Small",
-              "selectAction": {
-                "type": "Action.OpenUrl",
-                "tooltip": "Opem image",
-                "url": "${$data}"
-              }
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "Image",
+                  "url": "${$data}",
+                  "size": "Large",
+                  "style": "default",
+                  "spacing": "Medium",
+                  "selectAction": {
+                    "type": "Action.OpenUrl",
+                    "url": "${$data}"
+                  }
+                }
+              ]
             }
-          ],
-          "imageSize": "Large"
+          ]
         }
       ]
     },
@@ -175,17 +179,13 @@
         {
           "type": "Action.OpenUrl",
           "title": "Email",
-          "url": "https://outlook.office.com/?path=/mail/action/compose&to=${email}&subject=Reponding%20to%20your%20enquiry&body=Hi%20${firstName}%2C"
-        },
-        {
-          "type": "Action.OpenUrl",
-          "title": "View Lead",
-          "url": "https://flow-agility-7197.lightning.force.com/lightning/r/Lead/${leadId}/view"
+          "url": "mailto:${email}?subject=Responding%20to%20your%20enquiry&body=Hi%20${firstName}%2C"
         },
         {
           "type": "Action.OpenUrl",
           "title": "View Images",
-          "url": "${imageUrl}"
+          "url": "${imageUrl}",
+          "$when": "${count(images) > 0}"
         }
       ]
     }

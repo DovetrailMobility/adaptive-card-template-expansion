@@ -26,6 +26,16 @@ app.http("WebToLeadFormParserService", {
         }
       }
 
+      // Convert comma-separated image URLs into an array
+      if (outputData.image) {
+        outputData.images = outputData.image
+          .split(",")
+          .map((x) => x.trim())
+          .filter((x) => x.length > 0);
+      }
+
+      delete outputData.image; // Remove the original image field
+
       // Add the web source to the output data
       outputData.webSource = "USEDMOBILITYSCOOTERSHOP.CO.UK";
 
